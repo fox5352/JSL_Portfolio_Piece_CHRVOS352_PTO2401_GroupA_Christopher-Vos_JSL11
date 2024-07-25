@@ -1,5 +1,7 @@
 // TASK: import helper functions from utils
+import { createNewTask, getTasks, deleteTask, patchTask, putTask } from "./utils/taskFunctions.js";
 // TASK: import initialData
+import { initialData } from "./initialData.js";
 
 
 /*************************************************************************************************************************************************
@@ -15,10 +17,22 @@ function initializeData() {
     console.log('Data already exists in localStorage');
   }
 }
+initializeData();
 
 // TASK: Get elements from the DOM
 const elements = {
+  headerBoardName: document.getElementById('header-board-name'),
+  
+  filterDiv: document.getElementById('filterDiv'),
+  columnDivs: document.querySelectorAll('.column-div'),
 
+  modalWindow: document.getElementById('new-task-modal-window'),
+  editTaskModal: document.querySelector('.edit-task-modal-window'),
+
+  themeSwitch: document.getElementById('switch'),
+  addNewTaskBtn: document.getElementById('add-new-task-btn'),
+  hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
+  showSideBarBtn: document.getElementById('show-side-bar-btn'),
 }
 
 let activeBoard = ""
@@ -28,10 +42,14 @@ let activeBoard = ""
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
+
   displayBoards(boards);
+
   if (boards.length > 0) {
-    const localStorageBoard = JSON.parse(localStorage.getItem("activeBoard"))
-    activeBoard = localStorageBoard ? localStorageBoard ;  boards[0]; 
+    const localStorageBoard = localStorage.getItem("activeBoard")
+
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
+
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
     refreshTasksUI();
