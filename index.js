@@ -77,7 +77,6 @@ function displayBoards(boards) {
 }
 
 // Filters tasks corresponding to the board name and displays them on the DOM.
-// TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
   const filteredTasks = tasks.filter(task => task.board = boardName);
@@ -117,19 +116,17 @@ function refreshTasksUI() {
 }
 
 // Styles the active board by adding an active class
-// TASK: Fix Bugs
 function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').foreach(btn => { 
     
     if(btn.textContent === boardName) {
-      btn.add('active') 
+      btn.classList.add('active')
     }
     else {
-      btn.remove('active'); 
+      btn.classList.remove('active');
     }
   });
 }
-
 
 function addTaskToUI(task) {
   const column = document.querySelector('.column-div[data-status="${task.status}"]'); 
