@@ -38,7 +38,6 @@ const elements = {
 let activeBoard = ""
 
 // Extracts unique board names from tasks
-// TASK: FIX BUGS
 function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
@@ -57,7 +56,6 @@ function fetchAndDisplayBoardsAndTasks() {
 }
 
 // Creates different boards in the DOM
-// TASK: Fix Bugs
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
   boardsContainer.innerHTML = ''; // Clears the container
@@ -78,7 +76,6 @@ function displayBoards(boards) {
 }
 
 // Filters tasks corresponding to the board name and displays them on the DOM.
-// TASK: Fix Bugs
 function filterAndDisplayTasksByBoard(boardName) {
   const tasks = getTasks(); // Fetch tasks from a simulated local storage function
   const filteredTasks = tasks.filter(task => task.board = boardName);
@@ -117,7 +114,6 @@ function refreshTasksUI() {
 }
 
 // Styles the active board by adding an active class
-// TASK: Fix Bugs
 function styleActiveBoard(boardName) {
   document.querySelectorAll('.board-btn').forEach(btn => { 
     if(btn.textContent === boardName) {
@@ -193,7 +189,6 @@ function setupEventListeners() {
 };
 
 // Toggles tasks modal
-// Task: Fix bugs
 function toggleModal(show, modal = elements.modalWindow) {
   modal.style.display = show ? 'block' : 'none'; 
 }
@@ -224,12 +219,23 @@ function addTask(event) {
 }
 
 function toggleSidebar(show) {
+  const sidbarTag = document.getElementById("side-bar-div");
+  const showSidebarBtn = elements.showSideBarBtn;
+
+  if(show){
+    sidbarTag.style.display = 'block';
+    showSidebarBtn.style.display = 'none';
+    localStorage.setItem("showSidebar", 'true');
+  }else{
+    sidbarTag.style.display = 'none';
+    showSidebarBtn.style.display = 'block';
+    localStorage.setItem('showSidebar', 'false');
+  }
 }
 
 function toggleTheme() {
  
 }
-
 
 
 function openEditTaskModal(task) {
