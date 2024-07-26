@@ -3,6 +3,7 @@
 // Simulate fetching tasks from localStorage
 export const getTasks = () => {
   const tasks = localStorage.getItem('tasks');
+
   return tasks ? JSON.parse(tasks) : [];
 };
 
@@ -18,7 +19,6 @@ export const createNewTask = (task) => {
   saveTasks(tasks); // Save updated tasks array to local storage
   return newTask; // Return the newly created task
 };
-
 
 export const patchTask = (id, updates) => {
   const tasks = getTasks();
