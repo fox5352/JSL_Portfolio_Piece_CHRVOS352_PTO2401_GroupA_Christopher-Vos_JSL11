@@ -46,7 +46,6 @@ function fetchAndDisplayBoardsAndTasks() {
 
   if (boards.length > 0) {
     const localStorageBoard = localStorage.getItem("activeBoard")
-
     activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
 
     elements.headerBoardName.textContent = activeBoard
@@ -234,7 +233,19 @@ function toggleSidebar(show) {
 }
 
 function toggleTheme() {
- 
+  const currentTheme = localStorage.getItem("light-theme");
+  const themeSwitch = elements.themeSwitch;
+  const body = document.body;
+
+  if (currentTheme == 'enabled') {
+    themeSwitch.checked = false;
+    body.classList.remove("light-theme");
+    localStorage.setItem("light-theme", 'disabled');
+  }else {
+    themeSwitch.checked = true;
+    body.classList.add("light-theme");
+    localStorage.setItem('light-theme', 'enabled');
+  }
 }
 
 
@@ -279,7 +290,10 @@ function init() {
   setupEventListeners();
   const showSidebar = localStorage.getItem('showSideBar') === 'true';
   toggleSidebar(showSidebar);
+  
   const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
   document.body.classList.toggle('light-theme', isLightTheme);
+  isLightTheme === 'enabled' ? elements.themeSwitch.checked = true: elements.themeSwitch.checked = false;
+
   fetchAndDisplayBoardsAndTasks(); // Initial display of boards and tasks
 }
