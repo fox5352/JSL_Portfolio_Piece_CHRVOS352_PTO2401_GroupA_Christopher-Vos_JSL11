@@ -42,12 +42,13 @@ function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
 
-  displayBoards(boards);
-  if (boards.length > 0) {
-    const localStorageBoard = localStorage.getItem("activeBoard").replace("\"", "").replace("\"", "")
-    activeBoard = localStorageBoard ? localStorageBoard : boards[0];
 
+  displayBoards(boards);
+
+  if (boards.length > 0) {
+    activeBoard = localStorage.getItem("activeBoard") || boards[0];
     elements.headerBoardName.textContent = activeBoard
+
     styleActiveBoard(activeBoard)
 
     refreshTasksUI();
@@ -283,11 +284,11 @@ function saveTaskChanges(taskId) {
   const newTask = {
     title: document.getElementById("edit-task-title-input").value,
     description: document.getElementById("edit-task-desc-input").value,
-    status: document.getElementById("edit-select-status").value
+    status: document.getElementById("edit-select-status").value,
   }
 
   // Update task using a helper function
-  putTask(taskId, newTask);
+  patchTask(taskId, newTask);
 
   // Close the modal and refresh the UI to reflect the changes
   toggleModal(false, elements.editTaskModal);
