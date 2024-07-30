@@ -19,16 +19,19 @@ function initializeData() {
 }
 initializeData();
 
-// TASK: Get elements from the DOM
+// Get elements from the DOM
 const elements = {
-  headerBoardName: document.getElementById('header-board-name'),
+  headerBoardName: document.getElementById('header-board-name'),// header
 
+  // layout elements
   filterDiv: document.getElementById('filterDiv'),
   columnDivs: document.querySelectorAll('.column-div'),
 
+  // modals
   modalWindow: document.getElementById('new-task-modal-window'),
   editTaskModal: document.querySelector('.edit-task-modal-window'),
 
+  // controls
   themeSwitch: document.getElementById('switch'),
   addNewTaskBtn: document.getElementById('add-new-task-btn'),
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
@@ -42,13 +45,12 @@ function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
 
-
   displayBoards(boards);
 
+  // gets the current active board if not then selects firs in boards list
   if (boards.length > 0) {
     activeBoard = localStorage.getItem("activeBoard") || boards[0];
     elements.headerBoardName.textContent = activeBoard
-
     styleActiveBoard(activeBoard)
 
     refreshTasksUI();
@@ -59,7 +61,10 @@ function fetchAndDisplayBoardsAndTasks() {
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
   boardsContainer.innerHTML = ''; // Clears the container
+
+
   boards.forEach(board => {
+
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
@@ -70,6 +75,7 @@ function displayBoards(boards) {
       localStorage.setItem("activeBoard", activeBoard);
       styleActiveBoard(activeBoard);
     });
+
     boardsContainer.appendChild(boardElement);
   });
 }
@@ -97,7 +103,7 @@ function filterAndDisplayTasksByBoard(boardName) {
       taskElement.textContent = task.title;
       taskElement.setAttribute('data-task-id', task.id);
 
-      // Listen for a click event on each task and open a modal
+      // Listen for a click event on each task and open a moda
       taskElement.addEventListener("click", () => {
         openEditTaskModal(task);
       });
