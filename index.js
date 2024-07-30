@@ -12,7 +12,7 @@ import { initialData } from "./initialData.js";
 function initializeData() {
   if (!localStorage.getItem('tasks')) {
     localStorage.setItem('tasks', JSON.stringify(initialData));
-    localStorage.setItem('showSideBar', 'true')
+    localStorage.setItem('showSidebar', 'true')
   } else {
     console.log('Data already exists in localStorage');
   }
@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function init() {
   setupEventListeners();
-  const showSidebar = localStorage.getItem('showSideBar') === 'true';
+  const showSidebar = localStorage.getItem('showSidebar') === 'true';
   toggleSidebar(showSidebar);
 
   const isLightTheme = localStorage.getItem('light-theme') === 'enabled';
