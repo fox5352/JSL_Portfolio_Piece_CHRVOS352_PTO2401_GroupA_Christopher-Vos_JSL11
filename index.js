@@ -11,7 +11,7 @@ import { initialData } from "./initialData.js";
 // Function checks if local storage already has data, if not it loads initialData to localStorage
 function initializeData() {
   if (!localStorage.getItem('tasks')) {
-    localStorage.setItem('tasks', JSON.stringify(initialData)); 
+    localStorage.setItem('tasks', JSON.stringify(initialData));
     localStorage.setItem('showSideBar', 'true')
   } else {
     console.log('Data already exists in localStorage');
@@ -46,11 +46,9 @@ function fetchAndDisplayBoardsAndTasks() {
 
   if (boards.length > 0) {
     const localStorageBoard = localStorage.getItem("activeBoard").replace("\"", "").replace("\"", "")
-    activeBoard = localStorageBoard ? localStorageBoard :  boards[0]; 
-
+    activeBoard = localStorageBoard ? localStorageBoard :  boards[0];
     elements.headerBoardName.textContent = activeBoard
     styleActiveBoard(activeBoard)
-
     refreshTasksUI();
   }
 }
@@ -256,9 +254,6 @@ function openEditTaskModal(task) {
   document.getElementById("edit-task-title-input").value = task.title;
   document.getElementById("edit-task-desc-input").value = task.description;
   document.getElementById("edit-select-status").value = task.status;
-
-  // Get button elements from the task modal
-  const delBtn = document.getElementById("delete-task-changes-btn")
 
   // Call saveTaskChanges upon click of Save Changes button
   document.getElementById("save-task-changes-btn").addEventListener("click", event => {
