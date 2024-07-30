@@ -11,7 +11,7 @@ import { initialData } from "./initialData.js";
 // Function checks if local storage already has data, if not it loads initialData to localStorage
 function initializeData() {
   if (!localStorage.getItem('tasks')) {
-    localStorage.setItem('tasks', initialData);
+    localStorage.setItem('tasks', JSON.stringify(initialData));
     localStorage.setItem('showSideBar', 'true')
   } else {
     console.log('Data already exists in localStorage');
@@ -19,16 +19,19 @@ function initializeData() {
 }
 initializeData();
 
-// TASK: Get elements from the DOM
+// Get elements from the DOM
 const elements = {
-  headerBoardName: document.getElementById('header-board-name'),
+  headerBoardName: document.getElementById('header-board-name'),// header
 
+  // layout elements
   filterDiv: document.getElementById('filterDiv'),
   columnDivs: document.querySelectorAll('.column-div'),
 
+  // modals
   modalWindow: document.getElementById('new-task-modal-window'),
   editTaskModal: document.querySelector('.edit-task-modal-window'),
 
+  // controls
   themeSwitch: document.getElementById('switch'),
   addNewTaskBtn: document.getElementById('add-new-task-btn'),
   hideSideBarBtn: document.getElementById('hide-side-bar-btn'),
@@ -42,15 +45,14 @@ function fetchAndDisplayBoardsAndTasks() {
   const tasks = getTasks();
   const boards = [...new Set(tasks.map(task => task.board).filter(Boolean))];
 
-
   displayBoards(boards);
 
+  // gets the current active board if not then selects firs in boards list
   if (boards.length > 0) {
-    const localStorageBoard = localStorage.getItem("activeBoard").replace("\"", "").replace("\"", "")
-    activeBoard = localStorageBoard ? localStorageBoard :  boards[0];
+    activeBoard = localStorage.getItem("activeBoard") || boards[0];
     elements.headerBoardName.textContent = activeBoard
-
     styleActiveBoard(activeBoard)
+
     refreshTasksUI();
   }
 }
@@ -59,7 +61,10 @@ function fetchAndDisplayBoardsAndTasks() {
 function displayBoards(boards) {
   const boardsContainer = document.getElementById("boards-nav-links-div");
   boardsContainer.innerHTML = ''; // Clears the container
+
+
   boards.forEach(board => {
+
     const boardElement = document.createElement("button");
     boardElement.textContent = board;
     boardElement.classList.add("board-btn");
@@ -70,6 +75,7 @@ function displayBoards(boards) {
       localStorage.setItem("activeBoard", activeBoard);
       styleActiveBoard(activeBoard);
     });
+
     boardsContainer.appendChild(boardElement);
   });
 }
@@ -97,7 +103,7 @@ function filterAndDisplayTasksByBoard(boardName) {
       taskElement.textContent = task.title;
       taskElement.setAttribute('data-task-id', task.id);
 
-      // Listen for a click event on each task and open a modal
+      // Listen for a click event on each task and open a moda
       taskElement.addEventListener("click", () => {
         openEditTaskModal(task);
       });
@@ -255,6 +261,9 @@ function openEditTaskModal(task) {
   document.getElementById("edit-task-title-input").value = task.title;
   document.getElementById("edit-task-desc-input").value = task.description;
   document.getElementById("edit-select-status").value = task.status;
+
+  // Get button elements from the task modal
+  const delBtn = document.getElementById("delete-task-changes-btn")
 
   // Call saveTaskChanges upon click of Save Changes button
   document.getElementById("save-task-changes-btn").addEventListener("click", event => {
