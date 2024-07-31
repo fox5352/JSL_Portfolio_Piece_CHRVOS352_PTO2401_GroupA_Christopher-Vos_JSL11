@@ -258,6 +258,7 @@ header {
 .card-column-main {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .column-div {
@@ -424,6 +425,7 @@ header {
 }
 
 #edit-board-btn {
+  /* display: none; */
   top: 30px;
   right: 20px;
 }
@@ -845,6 +847,7 @@ input:checked + #label-checkbox-theme:after {
     border: none;
     margin-left: 10px;
     padding: 0;
+    min-width: 420;
   }
 
   .logo-mobile {
@@ -865,7 +868,7 @@ input:checked + #label-checkbox-theme:after {
 
   .boards-nav-links-div {
     gap: 0;
-    height: 100%;
+    /* height: 100%; */
   }
 
   .board-btn {
@@ -886,13 +889,14 @@ input:checked + #label-checkbox-theme:after {
   }
 
   .side-bar-bottom {
-    height: 100%;
+    /* height: 100%; */
     margin-bottom: 0;
     margin-top: 0;
   }
 
   .hide-side-bar-div {
-    display: none;
+    /* display: none; */
+    margin: 0 auto;
   }
 
   .toggle-div {
@@ -929,10 +933,10 @@ input:checked + #label-checkbox-theme:after {
   .side-bar {
     display: none;
     padding: 0;
-    height: 60%;
-    width: 30%;
+    height: 80%;
+    /* width: 60%; */
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 0.8rem;
@@ -969,6 +973,7 @@ input:checked + #label-checkbox-theme:after {
   }
 
   #edit-board-btn {
+    display: none;
     top: 17px;
     display: flex;
     right: 10px;
@@ -1046,9 +1051,6 @@ input:checked + #label-checkbox-theme:after {
   }
 }
 
-
-
-
 @media screen and (max-width: 480px) {
   .side-bar.show-sidebar {
     position: fixed;
@@ -1097,7 +1099,7 @@ input:checked + #label-checkbox-theme:after {
 
   .boards-nav-links-div {
     gap: 0;
-    height: 100%;
+    /* height: 100%; */
   }
 
   .board-btn {
@@ -1118,13 +1120,14 @@ input:checked + #label-checkbox-theme:after {
   }
 
   .side-bar-bottom {
-    height: 100%;
+    /* height: 100%; */
     margin-bottom: 0;
     margin-top: 0;
   }
 
   .hide-side-bar-div {
-    display: none;
+    /* display: none; */
+    margin: 0 auto;
   }
 
   .toggle-div {
